@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     } 
   },
   card:{
-    height:'40vh',
+    height:'50vh',
   border:'1px solid #7fab07',borderStyle:'dashed',width:'99%',paddingTop:'50px',paddingBottom:'10px',
     [theme.breakpoints.down("sm")]:{
       marginTop:'5px',

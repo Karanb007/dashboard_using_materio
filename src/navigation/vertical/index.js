@@ -67,6 +67,11 @@ const navigation = () => {
       path: '/tables'
     },
     {
+      title: 'My Work List',
+      icon: Table,
+      path: '/workList'
+    },
+    {
       icon: CubeOutline,
       title: 'Form Layouts',
       path: '/form-layouts'
