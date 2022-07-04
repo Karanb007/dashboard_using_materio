@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 // ** Demo Components Imports
 import AddVendor from 'src/views/workList/AddVendor'
 import SearchVendor from 'src/views/workList/SearchVendor'
+import VendorList from 'src/views/workList/VendorList'
 
 
 import TableBasic from 'src/views/tables/TableBasic'
@@ -85,7 +86,7 @@ const workList = () => {
         <Card style={{padding:'0px 10px 10px 10px',boxShadow:'0 0 0 0',borderRadius:'0'}}>
         
            {tabStatus !== "" && tabStatus === "list" ? (
-                    <TableBasic users={users}/>
+                   <VendorList users={users}/>
            ) : tabStatus === "search" ? (
             <SearchVendor/>
            ) :

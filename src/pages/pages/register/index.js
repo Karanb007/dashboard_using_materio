@@ -1,10 +1,11 @@
 // ** React Imports
 import { useState, Fragment } from 'react'
-
+import axios from 'axios'
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -60,26 +61,41 @@ const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
 
 const RegisterPage = () => {
   // ** States
-  const [values, setValues] = useState({
-    password: '',
-    showPassword: false
-  })
-
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [registrationInfo,setRegistrationInfo] = useState({});
+  const [passwordConfirmPasswordMatched,setPasswordConfirmPasswordMatched] = useState(true)
   // ** Hook
   const theme = useTheme()
-
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
-  }
-
+ // setting password visibility 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
+    setPasswordVisible(!passwordVisible)
   }
-
   const handleMouseDownPassword = event => {
     event.preventDefault()
   }
-
+  // getting all the information from input field for registration 
+  const handleChange = (e)=>{
+    setPasswordConfirmPasswordMatched(true);
+     setRegistrationInfo({...registrationInfo,[e.target.name]:e.target.value})
+  }
+ // submitting or sending all collected information to backend to register client
+ const register = async()=>{
+  //cecking password and confirm password are same or not 
+  if(registrationInfo.password !== registrationInfo.confirmPassword ){
+    setPasswordConfirmPasswordMatched(false);
+    
+  }else{
+    await axios.post('http://localhost:3006/register',{empName:registrationInfo.userName,password:registrationInfo.password})
+    .then((res)=>console.log("success"))
+    .catch((err)=>console.log(err))
+    
+    
+  }
+  
+ 
+   
+   
+ }
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1 }}>
@@ -164,16 +180,17 @@ const RegisterPage = () => {
             <Typography variant='body2'>Make your app management easy and fun!</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='username' label='Username' sx={{ marginBottom: 4 }} />
-            <TextField fullWidth type='email' label='Email' sx={{ marginBottom: 4 }} />
-            <FormControl fullWidth>
+            <TextField autoFocus fullWidth id='username' label='Username' name='userName' sx={{ marginBottom: 4 }} onChange={(e)=>handleChange(e)}/>
+            <TextField fullWidth type='email' label='Email' name='email' sx={{ marginBottom: 4 }} onChange={(e)=>handleChange(e)} />
+            <FormControl fullWidth sx={{ marginBottom: 4 }}>
               <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
               <OutlinedInput
                 label='Password'
-                value={values.password}
+                // value={values.password}
+                name='password'
                 id='auth-register-password'
-                onChange={handleChange('password')}
-                type={values.showPassword ? 'text' : 'password'}
+                onChange={(e)=>handleChange(e)}
+                type={passwordVisible ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position='end'>
                     <IconButton
@@ -182,12 +199,44 @@ const RegisterPage = () => {
                       onMouseDown={handleMouseDownPassword}
                       aria-label='toggle password visibility'
                     >
-                      {values.showPassword ? <EyeOutline fontSize='small' /> : <EyeOffOutline fontSize='small' />}
+                      {passwordVisible ? <EyeOutline fontSize='small' /> : <EyeOffOutline fontSize='small' />}
                     </IconButton>
                   </InputAdornment>
                 }
               />
             </FormControl>
+            <FormControl fullWidth>
+              <InputLabel htmlFor='auth-register-password'>Confirm Password</InputLabel>
+              <OutlinedInput
+                label='Password'
+                // value={values.password}
+                name='confirmPassword'
+                id='auth-register-password'
+                onChange={(e)=>handleChange(e)}
+                type={passwordVisible ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      edge='end'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      aria-label='toggle password visibility'
+                    >
+                      {passwordVisible ? <EyeOutline fontSize='small' /> : <EyeOffOutline fontSize='small' />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            { !passwordConfirmPasswordMatched ? (<Alert severity="error" >Password & Confirm Password should be same</Alert>):null}
+            
+            {/* <div style={{width:'100%',textAlign:'center',justifyContent:'center',display:'flex'}}>
+          {message && message.color === "green" ? 
+          (<Alert severity="success" >{message.text}</Alert>): message.color === "red" ?
+          (<Alert severity="error" >{message.text}</Alert>) : (<span></span>)  
+          }
+          
+        </div> */}
             <FormControlLabel
               control={<Checkbox />}
               label={
@@ -199,7 +248,9 @@ const RegisterPage = () => {
                 </Fragment>
               }
             />
-            <Button fullWidth size='large' type='submit' variant='contained' sx={{ marginBottom: 7 }}>
+            <Button fullWidth size='large' type='submit' variant='contained' sx={{ marginBottom: 7 }}
+             onClick={register}
+            >
               Sign up
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
