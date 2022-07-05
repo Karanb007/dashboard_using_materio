@@ -145,7 +145,7 @@ const AddVendor = () => {
     
   
     // backend api will be called here
-    await axios.post('http://localhost:3006/users',customerInfo
+    await axios.post('http://localhost:3006/vendors',customerInfo
     ).then(resp => {
       setMessage({text:"Information has been submitted...",color:"green"})
     }).catch(error => {

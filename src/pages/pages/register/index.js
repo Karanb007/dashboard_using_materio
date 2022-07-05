@@ -92,9 +92,6 @@ const RegisterPage = () => {
     
   }
   
- 
-   
-   
  }
   return (
     <Box className='content-center'>

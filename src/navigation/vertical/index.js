@@ -67,6 +67,11 @@ const navigation = () => {
       path: '/tables'
     },
     {
+      title: 'Register Customer',
+      icon: Table,
+      path: '/registerCustomer'
+    },
+    {
       title: 'My Work List',
       icon: Table,
       path: '/workList'

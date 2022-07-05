@@ -15,6 +15,7 @@ import SearchVendor from 'src/views/workList/SearchVendor'
 import VendorList from 'src/views/workList/VendorList'
 
 
+
 import TableBasic from 'src/views/tables/TableBasic'
 import TableDense from 'src/views/tables/TableDense'
 import TableSpanning from 'src/views/tables/TableSpanning'
@@ -27,19 +28,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 
 const workList = () => {
-  
-  const [users,setUsers] = useState([]);
   const [tabStatus,setTabStatus] = useState('add');
   
- 
-  useEffect(()=>{
-    getAllUsers();
-  },[])
-  const getAllUsers = async()=>{
-    await axios.get("http://localhost:3006/users")
-                .then((res)=>setUsers(res.data))
-                .catch((error)=>console.log(error));
-  }
 
  
   return (
@@ -86,13 +76,14 @@ const workList = () => {
         <Card style={{padding:'0px 10px 10px 10px',boxShadow:'0 0 0 0',borderRadius:'0'}}>
         
            {tabStatus !== "" && tabStatus === "list" ? (
-                   <VendorList users={users}/>
+            <VendorList />
            ) : tabStatus === "search" ? (
             <SearchVendor/>
-           ) :
+           ) : 
            (
             <AddVendor/>
            )
+          
            }
            
         </Card>
