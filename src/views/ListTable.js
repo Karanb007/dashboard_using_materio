@@ -31,12 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ListTable = ({tableData})=>{
     const classes = useStyles()
-    let headings = []
-    let data = []
-   
-    for(let i in tableData[0]){
-        headings.push(i)
-    }
+    
 
     
     

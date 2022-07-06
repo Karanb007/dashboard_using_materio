@@ -84,9 +84,22 @@ const LoginPage = () => {
   // const handleMouseDownPassword = event => {
   //   event.preventDefault()
   // }
-  const submit = ()=>{
-    
-    console.log(JSON.stringify(values));
+  const submit = async(e)=>{
+    e.preventDefault();
+    const data = {email:values.email,password:values.password}
+    console.log(data);
+    router.push("http://localhost:3000/")
+  //  let res = await fetch("api",{
+  //   method:'POST',
+  //   headers:{
+  //     'Content-Type':'application/json',
+
+  //   },
+  //   body:JSON.stringify(data)
+  //  })
+  //  let response = await res.json()
+
+
   }
 
   return (
@@ -163,40 +176,14 @@ const LoginPage = () => {
                 fontSize: '1.5rem !important'
               }}
             >
-              {themeConfig.templateName}
+              Login
             </Typography>
           </Box>
-          <Box sx={{ mb: 6 }}>
-            <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
-              Welcome to {themeConfig.templateName}! 👋🏻
-            </Typography>
-            <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
-          </Box>
+  
           <form noValidate autoComplete='off' onSubmit={submit}  >
             <TextField autoFocus fullWidth type='text' name='email' id='email' label='Email' sx={{ marginBottom: 4 }}  onChange={(e)=>handleChange(e)} />
             <TextField autoFocus fullWidth type='password' name='password' id='password' label='Password' sx={{ marginBottom: 4 }}  onChange={(e)=>handleChange(e)} />
-            {/* <FormControl fullWidth>
-              <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
-              <OutlinedInput
-                label='Password'
-                value={values.password}
-                id='auth-login-password'
-                onChange={(e)=>handleChange(e)}
-                // type={values.showPassword ? 'text' : 'password'}
-                // endAdornment={
-                //   <InputAdornment position='end'>
-                //     <IconButton
-                //       edge='end'
-                //       onClick={handleClickShowPassword}
-                //       onMouseDown={handleMouseDownPassword}
-                //       aria-label='toggle password visibility'
-                //     >
-                //       {values.showPassword ? <EyeOutline /> : <EyeOffOutline />}
-                //     </IconButton>
-                //   </InputAdornment>
-                // }
-              />
-            </FormControl> */}
+            
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
@@ -225,7 +212,7 @@ const LoginPage = () => {
                 </Link>
               </Typography>
             </Box>
-            <Divider sx={{ my: 5 }}>or</Divider>
+            {/* <Divider sx={{ my: 5 }}>or</Divider>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Link href='/' passHref>
                 <IconButton component='a' onClick={e => e.preventDefault()}>
@@ -249,7 +236,7 @@ const LoginPage = () => {
                   <Google sx={{ color: '#db4437' }} />
                 </IconButton>
               </Link>
-            </Box>
+            </Box> */}
           </form>
         </CardContent>
       </Card>
