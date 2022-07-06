@@ -28,32 +28,30 @@ const useStyles = makeStyles(theme => ({
     background: '#9ed406',
     marginTop: '10px',
     fontWeight: 600,
-    color: '#d4220f',
+    color: '#5a8ff2',
     textTransform: 'none'
   },
-  inputFieldContainer: {
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: '5px',
-      marginRight: '5px'
-    }
+  inputFieldContainer:{
+    display:'flex',fontWeight:'500',color:'#5a8ff2',alignItems:'center',justifyContent:'space-between',marginBottom:'10px',marginLeft:'40px',marginRight:'40px'
+  },      
+  inputFieldName:{
+    fontWeight:'500',
+    fontSize:'18px',
+  [theme.breakpoints.down("sm")]:{
+    fontWeight:'500',
+    fontSize:'13px'  
+  }
   },
-  inputFieldName: {
-    fontWeight: '600',
-    [theme.breakpoints.down('sm')]: {
-      fontWeight: '500',
-      fontSize: 'small'
-    }
-  },
-  inputField: {
-    fontWeight: '600',
-    [theme.breakpoints.down('sm')]: {
-      fontWeight: 300,
-      fontSize: '5px'
+  inputField:{
+    width:'60%',
+    [theme.breakpoints.down("sm")]:{
+      width:'56%', 
+      fontSize:'12px'  
     }
   },
   card: {
-    height: '50vh',
-    border: '1px solid #7fab07',
+    height: '60vh',
+    border: '1px solid ',
     borderStyle: 'dashed',
     width: '99%',
     paddingTop: '50px',
@@ -142,15 +140,15 @@ const AddVendor = () => {
   }
   
   const submitCustomerInfo = async() => {
-    
+    console.log(customerInfo)
   
     // backend api will be called here
-    await axios.post('http://localhost:3006/vendors',customerInfo
-    ).then(resp => {
-      setMessage({text:"Information has been submitted...",color:"green"})
-    }).catch(error => {
-      setMessage({text:"Something went wrong, try again later...",color:"red"})
-  });
+  //   await axios.post('http://localhost:3006/vendors',customerInfo
+  //   ).then(resp => {
+  //     setMessage({text:"Information has been submitted...",color:"green"})
+  //   }).catch(error => {
+  //     setMessage({text:"Something went wrong, try again later...",color:"red"})
+  // });
 
    
     setTimeout(()=>{
@@ -163,245 +161,115 @@ const AddVendor = () => {
       {/* <form noValidate autoComplete='off'  > */}
       <Grid item xs={12} md={6}>
         <Card className={classes.card}>
-          <div
-            className={classes.inputFieldContainer}
-            style={{
-              display: 'flex',
-              fontWeight: '500',
-              color: '#d4220f',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '10px',
-              marginLeft: '40px',
-              marginRight: '40px'
-            }}
-          >
-            <div className={classes.inputFieldName}>Unique Vendor ID</div>
-            <TextField
-              type='text'
-              variant='standard'
-              className={classes.inputField}
-              style={{ width: '60%', textColor: '#d4220f', paddingLeft: '15px' }}
-              name='uniqueVendorId'
-              value={customerInfo.uniqueVendorId}
-              placeholder='Unique Vendor ID'
-              onChange={e => handleChange(e)}
-              InputProps={{
-                autoComplete: false,
-                disableUnderline: true
-              }}
-            />
-          </div>
+        <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Unique Vendor Id</div>
+             <TextField
+                 className={classes.inputField}    
+                 name='uniqueVendorId'  
+                 value={customerInfo.uniqueVendorId}          
+                placeholder='Unique Vendor Id'
+                onChange={(e)=>handleChange(e)}  
+              />
+               </div> 
 
-          <div
-            className={classes.inputFieldContainer}
-            style={{
-              display: 'flex',
-              color: '#d4220f',
-              fontWeight: '500',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '10px',
-              marginLeft: '40px',
-              marginRight: '40px'
-            }}
-          >
-            <div className={classes.inputFieldName}>Other Trading Name</div>
-            <TextField
-              type='text'
-              className={classes.inputField}
-              variant='standard'
-              required
-              disableUnderline={true}
-              style={{
-                width: '60%',
-                color: '#d4220f',
-                border: '2px solid #d4220f',
-                paddingLeft: '15px',
-                borderRadius: '5px'
-              }}
-              name='otherTradingName'
-              value={customerInfo.otherTradingName}
-              placeholder='Other Trading Name'
-              onChange={e => handleChange(e)}
-              InputProps={{
-                disableUnderline: true // <== added this
-              }}
-            />
-          </div>
+               <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Other Trading Name</div>
+             <TextField
+                 className={classes.inputField}    
+                 name='otherTradingName' 
+                 value={customerInfo.otherTradingName}            
+                placeholder='Other Trading Name'
+                onChange={(e)=>handleChange(e)}  
+              />
+               </div>
 
-          <div
-            style={{
-              display: 'flex',
-              fontWeight: '500',
-              color: '#d4220f',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '10px',
-              marginLeft: '40px',
-              marginRight: '40px'
-            }}
-          >
-            <div className={classes.inputFieldName}>Individual/Sole Trader</div>
-            <TextField
-              className={classes.inputField}
-              select
-              required
-              variant='standard'
-              disableUnderline={true}
-              style={{ width: '60%', border: '2px solid #d4220f', color: '#d4220f', borderRadius: '5px' }}
-              InputProps={{
-                disableUnderline: true
-              }}
-              name='soleTrader'
-              value={customerInfo.soleTrader}
-              onChange={handleChange}
-            >
-              {soleTrader.map(option => (
-                <MenuItem key={option.value} value={option.value} style={{ color: '#d4220f' }}>
-                  &nbsp;&nbsp; {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              fontWeight: '500',
-              color: '#d4220f',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '10px',
-              marginLeft: '40px',
-              marginRight: '40px'
-            }}
-          >
-            <div className={classes.inputFieldName}>Registration Number</div>
-            <TextField
-              type='text'
-              required
-              className={classes.inputField}
-              variant='standard'
-              disableUnderline={true}
-              style={{
-                width: '60%',
-                color: '#d4220f',
-                border: '2px solid #d4220f',
-                paddingLeft: '15px',
-                borderRadius: '5px'
-              }}
-              InputProps={{
-                disableUnderline: true
-              }}
-              name='registrationNumber'
-              value={customerInfo.registrationNumber}
-              placeholder='Registration Number'
-              onChange={e => handleChange(e)}
-            />
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              fontWeight: '500',
-              color: '#d4220f',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '10px',
-              marginLeft: '40px',
-              marginRight: '40px'
-            }}
-          >
-            <div className={classes.inputFieldName}>Country of Operation</div>
-            <TextField
-              select
-              required
-              className={classes.inputField}
-              variant='standard'
-              disableUnderline={true}
-              style={{ width: '60%', textColor: '#d4220f', border: '2px solid #d4220f', borderRadius: '5px' }}
-              InputProps={{
-                disableUnderline: true
-              }}
-              name='country'
-              value={customerInfo.country}
-              onChange={handleChange}
-            >
-              {countries.map(option => (
-                <MenuItem key={option.value} value={option.value} style={{ color: '#d4220f' }}>
-                  &nbsp;&nbsp; {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
+               <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Individual/Sole Trader</div>
+             <TextField
+                 className={classes.inputField}
+                 value={customerInfo.soleTrader}                 
+                 select
+                 required
+                 name='soleTrader'
+                 onChange={(e)=>handleChange(e)} 
+              >
+                {soleTrader.map((option) => (
+            <MenuItem key={option.value} value={option.value} >
+              &nbsp;&nbsp; {option.label}
+            </MenuItem>
+          ))}
+                
+              </TextField>
+               </div> 
+               <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Registration Number</div>
+             <TextField
+                 className={classes.inputField}    
+                 name='registrationNumber' 
+                 value={customerInfo.registrationNumber}        
+                placeholder='Registration Number'
+                onChange={(e)=>handleChange(e)}  
+              />
+               </div>
+               <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Country Of Operation</div>
+             <TextField
+                 className={classes.inputField}
+                 value={customerInfo.country}                 
+                 select
+                 required
+                 name='country'
+                 onChange={(e)=>handleChange(e)} 
+              >
+                {countries.map((option) => (
+            <MenuItem key={option.value} value={option.value} >
+              &nbsp;&nbsp; {option.label}
+            </MenuItem>
+          ))}
+                
+              </TextField>
+               </div>
         </Card>
       </Grid>
       <Grid item xs={12} md={6}>
         <Card className={classes.card}>
-          <div
-            style={{
-              display: 'flex',
-              color: '#d4220f',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: '10px',
-              marginLeft: '40px',
-              marginRight: '40px'
-            }}
-          >
-            <div className={classes.inputFieldName}> Vendor Status</div>
-            <TextField
-              select
-              required
-              className={classes.inputField}
-              variant='standard'
-              disableUnderline={true}
-              style={{ width: '60%', border: '2px solid #d4220f', color: '#d4220f', borderRadius: '5px' }}
-              InputProps={{
-                disableUnderline: true
-              }}
-              name='vendorStatus'
-              value={customerInfo.vendorStatus}
-              onChange={handleChange}
-            >
-              {vendorStatusType.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  &nbsp;&nbsp; {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
+        <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Vendor Status</div>
+             <TextField
+                 className={classes.inputField}
+                 value={customerInfo.vendorStatus}                 
+                 select
+                 required
+                 name='vendorStatus'
+                 onChange={(e)=>handleChange(e)} 
+              >
+                {vendorStatusType.map((option) => (
+            <MenuItem key={option.value} value={option.value} >
+              &nbsp;&nbsp; {option.label}
+            </MenuItem>
+          ))}
+                
+              </TextField>
+               </div>
 
-          <div
-            style={{
-              alignItems: 'center',
-              color: '#d4220f',
-              marginTop: '40px',
-              marginLeft: '40px',
-              marginRight: '40px'
-            }}
-          >
-            <div className={classes.inputFieldName}>Customers are Self Serve?</div>
-            <TextField
-              variant='standard'
-              required
-              className={classes.inputField}
-              disableUnderline={true}
-              style={{ width: '100%', border: '2px solid #d4220f', color: '#d4220f', borderRadius: '5px' }}
-              InputProps={{
-                disableUnderline: true
-              }}
-              select
-              name='customerAreSelfServe'
-              value={customerInfo.customerAreSelfServe}
-              onChange={handleChange}
-            >
-              {customerAreSelfServeType.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  &nbsp;&nbsp; {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
+               <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Customer are Self Serve?</div>
+             <TextField
+                 className={classes.inputField}
+                 value={customerInfo.customerAreSelfServe}                 
+                 select
+                 required
+                 name='customerAreSelfServe'
+                 onChange={(e)=>handleChange(e)} 
+              >
+                {customerAreSelfServeType.map((option) => (
+            <MenuItem key={option.value} value={option.value} >
+              &nbsp;&nbsp; {option.label}
+            </MenuItem>
+          ))}
+                
+              </TextField>
+               </div>
         </Card>
       </Grid>
       <div className={classes.customerInfoSubmitBtnContainer}>

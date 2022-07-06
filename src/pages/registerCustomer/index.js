@@ -10,8 +10,6 @@ import { makeStyles } from "@material-ui/core/styles"
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
-
-
 import AccountGroup from 'mdi-material-ui/AccountGroup'
 import Typography from '@mui/material/Typography'
 
@@ -31,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
      }  
       },
       inputFieldContainer:{
-        display:'flex',fontWeight:'500',color:'#d4220f',alignItems:'center',justifyContent:'space-between',marginBottom:'10px',marginLeft:'40px',marginRight:'40px'
+        display:'flex',fontWeight:'500',color:'#5a8ff2',alignItems:'center',justifyContent:'space-between',marginBottom:'10px',marginLeft:'40px',marginRight:'40px'
       },      
       inputFieldName:{
         fontWeight:'500',
         fontSize:'18px',
+        color:'#5a8ff2',
       [theme.breakpoints.down("sm")]:{
         fontWeight:'500',
         fontSize:'15px'  
@@ -55,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
         background : "#9ed406",
         marginTop:'10px',
         fontWeight:600,
-        color:'#d4220f',
+        color:'5a8ff2',
         textTransform:'none',
       },
       container:{
@@ -79,21 +78,64 @@ const initialInfo = {
       dob:"",
       phone: "",
       address: "",
-      idProof: ""
+      password:""
+      
      
 }
 const RegisterCustomer = ()=>{
  
     const classes = useStyles();
     const [message,setMessage] = useState({});
+
+
     const [customerRegistrationInfo,setCustomerRegistrationInfo] = useState(initialInfo); 
+
+    // const [selectedFile, setSelectedFile] = useState(null);
+
     const handleChange = (e)=>{
         setCustomerRegistrationInfo({...customerRegistrationInfo,[e.target.name]:e.target.value});
     }
+    // const handleFileSelect = (event) => {
+    //   setSelectedFile(event.target.files[0])
+    // }
+
+    // const handleSubmit =  async(event) => {
+    //   // event.preventDefault()
+    //   // const formData = new FormData();
+    //   // formData.append("selectedFile", selectedFile);
+    //   // console.log(formData)
+      
+    //   try {
+    //     const response = await axios({
+    //       method: "post",
+    //       url: "http://localhost:3006/uploads",
+    //       data: formData,
+    //       headers: { "Content-Type": "multipart/form-data" },
+    //     });
+    //   } catch(error) {
+    //     console.log(error)
+    //   }
+    // }
+
+    
+
+    // const handleUploadFile = async(e)=>{
+    //   await axios.post("http://localhost:3006/uploads",e.target.files[0])
+    //                .then((res)=> setMessage({text:"Information has been submitted...",color:"green"})) 
+    //                .catch((err)=>setMessage({text:"Something went wrong",color:"red"}))
+      
+    // }
+
+
     const registerCustomer = async()=>{
-      const unique_id = uuid();
-      const small_id = unique_id.slice(0,8)
-        await axios.post("http://localhost:3006/customers",{id:small_id,...customerRegistrationInfo})
+      // const unique_id = uuid();
+      // const small_id = unique_id.slice(0,8)
+
+      // const formData = new FormData()
+      // formData.append('idProof',customerIdProof)
+      
+      
+        await axios.post("http://localhost:3006/customers",customerRegistrationInfo)
                    .then((res)=> setMessage({text:"Information has been submitted...",color:"green"})) 
                    .catch((err)=>setMessage({text:"Something went wrong",color:"red"}))
 
@@ -101,10 +143,15 @@ const RegisterCustomer = ()=>{
                     setMessage({})
                     setCustomerRegistrationInfo(initialInfo)
                    },3000)
-    console.log(customerRegistrationInfo)
+    //     console.log(customerIdProof)
+    // console.log(formData)
     }
 
 return (
+//   <form onSubmit={handleSubmit}>
+//   <input type="file" onChange={handleFileSelect}/>
+//   <input type="submit" value="Upload File" />
+// </form>
     <Card style={{padding:'0px 10px 10px 10px',boxShadow:'0 0 0 0',borderRadius:'0'}}>
         <Box className={classes.container}>
         <Typography
@@ -190,12 +237,9 @@ return (
             <TextField
              value={customerRegistrationInfo.address}
               className={classes.inputField}
-            
               style={{ width: '100%' }}
-             placeholder='Customer Address'
-              
+              placeholder='Customer Address'
               name='address'
-             
               onChange={handleChange}
               
             />
@@ -207,11 +251,21 @@ return (
              <div className={classes.inputFieldName}>Customer ID</div>
              <TextField
                  className={classes.inputField}
-                 type='file'
-                 value={customerRegistrationInfo.idProof}
-                 name='idProof'                
+                 type='file'                 
                 placeholder='ID Proof' 
-                onChange={(e)=>handleChange(e)} 
+                onChange={(e)=>handleUploadFile(e)} 
+              />
+               </div>
+
+                <div className={classes.inputFieldContainer}>
+             <div className={classes.inputFieldName}>Password</div>
+             <TextField
+                 className={classes.inputField}    
+                 name='password' 
+                 type='password'           
+                 value={customerRegistrationInfo.password}
+                 placeholder='Password'
+                onChange={(e)=>handleChange(e)}  
               />
                </div>  
              </Card>

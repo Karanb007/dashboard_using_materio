@@ -47,15 +47,43 @@ const ListTable = ({tableData})=>{
         <Table sx={{ minWidth:650}} aria-label='simple table'>
           <TableHead>
             <TableRow>
-              {headings.map((cell,i)=>(
-                <TableCell align='left' key={i}>{cell}</TableCell>
-              ))}
+             
+                <TableCell align='left' >Id</TableCell>
+                <TableCell align='left' >Name</TableCell>
+                <TableCell align='left' >Phone</TableCell>
+                <TableCell align='left' >E-mail</TableCell>
+                <TableCell align='left' >DOB</TableCell>
+                <TableCell align='left' >Address</TableCell>
+            
               <TableCell align='center'></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            
-          {tableData.map((items)=>(
+          {tableData.map(customer => (
+              <TableRow
+                key={customer.name}
+               
+              >
+                <TableCell component='th' scope='row'>
+                  {customer.id}
+                </TableCell>
+                <TableCell align='left'>{customer.name}</TableCell>
+                <TableCell align='left'>{customer.phone}</TableCell>
+                <TableCell align='left'>{customer.email}</TableCell>
+                <TableCell align='left'>{customer.dob}</TableCell>
+                <TableCell align='left'>{customer.address}</TableCell>
+                {/* <TableCell align='left' className={classes.btns}>
+                   <Button>
+                     edit
+                   </Button>
+                   <Button>
+                     delet
+                   </Button>
+                   <Link href={{ pathname: "/workList/vendorProfile/", query: { id: vendor.id } }}><a>profile</a></Link>
+                </TableCell> */}
+              </TableRow>
+            ))}
+          {/* {tableData.map((items)=>(
               <TableRow>
                 
                 {
@@ -69,7 +97,7 @@ const ListTable = ({tableData})=>{
                 
               </TableRow>
                ))}
-           
+            */}
            
            
                 

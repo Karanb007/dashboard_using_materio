@@ -21,18 +21,22 @@ const useStyles = makeStyles((theme) => ({
      }  
       },
       inputFieldContainer:{
-        display:'flex',fontWeight:'500',color:'#d4220f',alignItems:'center',justifyContent:'space-between',marginBottom:'10px',marginLeft:'40px',marginRight:'40px'
+        display:'flex',fontWeight:'500',color:'#5a8ff2',alignItems:'center',justifyContent:'space-between',marginBottom:'10px',marginLeft:'40px',marginRight:'40px'
       },      
       inputFieldName:{
         fontWeight:'500',
         fontSize:'18px',
-      [theme.breakpoints.down("sm")]:{
-        fontWeight:'500',
-        fontSize:'15px'  
-      }
+        [theme.breakpoints.down("sm")]:{
+          fontWeight:'500',
+          fontSize:'13px'  
+        }
       },
       inputField:{
-        width:'60%'
+        width:'60%',
+        [theme.breakpoints.down("sm")]:{
+          width:'56%', 
+          fontSize:'12px'  
+        }
       },
       searchVendorBtnContainer:{
         width:'100%',display:'flex',justifyContent:'flex-end',paddingRight:'10px',
@@ -45,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
         background : "#9ed406",
         marginTop:'10px',
         fontWeight:600,
-        color:'#d4220f',
+        color:'#5a8ff2',
         textTransform:'none',
       },
 }))

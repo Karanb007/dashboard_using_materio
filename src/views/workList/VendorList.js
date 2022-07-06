@@ -81,7 +81,7 @@ const VendorList = ()=>{
                 <TableCell align='left'>{vendor.registrationNumber}</TableCell>
                 <TableCell align='left'>{vendor.country}</TableCell>
                 <TableCell align='left'>{vendor.vendorStatus}</TableCell>
-                <TableCell align='left' className={classes.btns}>
+                {/* <TableCell align='left' className={classes.btns}>
                    <Button>
                      edit
                    </Button>
@@ -89,7 +89,7 @@ const VendorList = ()=>{
                      delet
                    </Button>
                    <Link href={{ pathname: "/workList/vendorProfile/", query: { id: vendor.id } }}><a>profile</a></Link>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>

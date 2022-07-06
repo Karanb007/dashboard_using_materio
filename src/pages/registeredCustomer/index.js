@@ -28,6 +28,7 @@ const registeredCustomer = ()=>{
         }
         getAllRegisteredCustomer()
     },[])
+
     return (
 <Card style={{padding:'0px 10px 10px 10px',boxShadow:'0 0 0 0',borderRadius:'0',paddingTop:'15px'}}>
 
